@@ -1,0 +1,558 @@
+
+NMAP Commands 
+
+Here’s a comprehensive list of Nmap commands, organized by their purpose:
+
+
+1. Basic Scanning
+
+    nmap <target>: Perform a basic scan on the target.
+    nmap <target1> <target2> ...: Scan multiple targets.
+    nmap <IP range>: Scan a range of IP addresses.
+    nmap <hostname>: Scan a specific hostname.
+    nmap -iL <inputfile>: Scan targets from a file.
+
+2. Host Discovery
+
+    nmap -sP <target>: Ping scan to discover live hosts.
+    nmap -sn <target>: No port scan; only perform host discovery.
+    nmap -Pn <target>: Disable host discovery (treat all hosts as online).
+
+3. Port Scanning
+
+    nmap -sS <target>: TCP SYN scan (default and stealthy).
+    nmap -sT <target>: TCP connect scan (less stealthy).
+    nmap -sU <target>: UDP scan.
+    nmap -sY <target>: SCTP INIT scan.
+    nmap -sN <target>: TCP Null scan (no flags set).
+    nmap -sF <target>: TCP FIN scan (only FIN flag set).
+    nmap -sX <target>: TCP Xmas scan (FIN, PSH, and URG flags set).
+    nmap -p <port>: Scan a specific port.
+    nmap -p- <target>: Scan all 65535 ports.
+    nmap -F <target>: Fast scan (100 most common ports).
+
+4. Service and Version Detection
+
+    nmap -sV <target>: Detect version of services running on open ports.
+    nmap --version-all <target>: Try all version detection methods.
+    nmap --version-intensity <level> <target>: Set intensity level (0 to 9).
+
+5. Operating System Detection
+
+    nmap -O <target>: Detect the operating system.
+    nmap --osscan-guess <target>: Guess OS more aggressively.
+
+6. Script Scanning
+
+    nmap -sC <target>: Scan with the default scripts.
+    nmap --script <script-name> <target>: Run a specific NSE script.
+    nmap --script=<script-name1>,<script-name2> <target>: Run multiple scripts.
+    nmap --script-args <args>: Provide arguments to scripts.
+
+7. Aggressive Scanning
+
+    nmap -A <target>: Aggressive scan (OS detection + version detection + script scanning + traceroute).
+    nmap -T4 <target>: Increase scan speed (combines with other options).
+
+8. Timing and Performance
+
+    nmap -T<0-5> <target>: Set timing template (0: paranoid, 5: insane).
+    nmap --min-rate <rate>: Set minimum scan rate (packets per second).
+    nmap --max-rate <rate>: Set maximum scan rate.
+
+9. Firewall and IDS Evasion
+
+    nmap -D RND:10 <target>: Use decoys to hide the real source.
+    nmap -S <IP>: Spoof source IP address.
+    nmap --source-port <port>: Set source port number.
+    nmap --data-length <size>: Set the size of the packet's payload.
+    nmap -f <target>: Fragment packets.
+    nmap --mtu <value>: Set a specific MTU value.
+
+10. Output Options
+
+    nmap -oN <filename>: Normal output to a file.
+    nmap -oX <filename>: XML output to a file.
+    nmap -oG <filename>: Greppable output to a file.
+    nmap -oA <basename>: Output in all three formats (normal, XML, and Grepable).
+
+11. Advanced Scanning
+
+    nmap -sI <zombie-host> <target>: Idle scan (stealth scan using a zombie).
+    nmap --traceroute <target>: Perform traceroute.
+    nmap --reason <target>: Display the reason for each host/port state.
+    nmap --packet-trace <target>: Show all packets sent and received.
+    nmap --badsum <target>: Send packets with a bogus TCP/UDP checksum.
+
+12. IPv6 Scanning
+
+    nmap -6 <target>: Enable IPv6 scanning.
+    nmap -sT -6 <target>: TCP connect scan over IPv6.
+
+13. Miscellaneous
+
+    nmap --resume <filename>: Resume a scan from a saved file.
+    nmap --append-output <filename>: Append to an existing output file.
+    nmap --script-help <script-name>: Get help on a specific NSE script.
+    nmap --iflist: List available interfaces and routes.
+    nmap --top-ports <number> <target>: Scan the top N most common ports.
+
+This list covers a wide array of Nmap's functionality, from basic scanning to advanced features like evasion techniques and script scanning. Each of these commands can be combined with others to tailor scans to specific needs.
+
+
+
+
+
+
+
+
+
+
+
+VULNERABILITY SCANNING:
+Nmap is not primarily a vulnerability scanner like tools such as OpenVAS or Nessus, but it does include a powerful scripting engine (Nmap Scripting Engine, or NSE) that can be used to detect vulnerabilities. Below are Nmap commands and scripts related to vulnerability detection:
+1. Vulnerability Scanning with NSE Scripts
+
+    nmap --script vuln <target>: Run all vulnerability detection scripts against the target. This is the easiest way to scan for known vulnerabilities.
+    nmap --script <script-name> <target>: Run a specific vulnerability script against the target. For example, nmap --script http-vuln-cve2017-5638 <target> scans for Apache Struts2 vulnerability (CVE-2017-5638).
+
+2. Common Vulnerability Detection Scripts
+
+Here are some commonly used NSE scripts for vulnerability detection:
+
+    nmap --script http-vuln-cve2017-5638 <target>: Detects Apache Struts2 vulnerability (CVE-2017-5638).
+    nmap --script smb-vuln-ms17-010 <target>: Checks for the SMB vulnerability related to WannaCry (MS17-010).
+    nmap --script ssl-heartbleed <target>: Detects the Heartbleed vulnerability (CVE-2014-0160).
+    nmap --script http-slowloris-check <target>: Checks if the target is vulnerable to Slowloris DoS attack.
+    nmap --script smb-vuln-* <target>: Runs all SMB-related vulnerability scripts, useful for detecting multiple SMB vulnerabilities.
+    nmap --script ftp-vsftpd-backdoor <target>: Detects backdoor vulnerability in vsftpd version 2.3.4.
+    nmap --script http-dombased-xss <target>: Detects DOM-based cross-site scripting vulnerabilities.
+    nmap --script http-sql-injection <target>: Detects SQL injection vulnerabilities in web applications.
+    nmap --script http-csrf <target>: Checks for Cross-Site Request Forgery (CSRF) vulnerabilities.
+    nmap --script dns-recursion <target>: Detects DNS servers vulnerable to DNS recursion attacks.
+    nmap --script smb-vuln-ms08-067 <target>: Detects the SMB vulnerability MS08-067, which was used by the Conficker worm.
+
+3. Script Categories for Vulnerabilities
+
+You can also run scripts by category to focus on specific types of vulnerabilities:
+
+    nmap --script vuln <target>: Runs all scripts in the vuln category.
+    nmap --script exploit <target>: Runs all scripts that exploit vulnerabilities.
+    nmap --script intrusive <target>: Runs scripts that are considered intrusive (may disrupt the target system).
+
+4. Examples of Specific Vulnerability Scans
+
+    Scanning for SMB Vulnerabilities:
+        nmap --script smb-vuln-* <target>: Runs all SMB vulnerability detection scripts (e.g., MS17-010, MS08-067).
+    Scanning for Web Application Vulnerabilities:
+        nmap --script http-vuln-* <target>: Scans for various HTTP-related vulnerabilities.
+    Scanning for SSL/TLS Vulnerabilities:
+        nmap --script ssl-* <target>: Runs scripts related to SSL/TLS vulnerabilities (e.g., Heartbleed, POODLE).
+
+5. Combining with Other Nmap Options
+
+You can combine vulnerability scanning scripts with other Nmap options for more detailed scans:
+
+    nmap -sV --script vuln <target>: Combine version detection with vulnerability scanning.
+    nmap -p 80,443 --script http-vuln-cve2017-5638 <target>: Scan specific ports for vulnerabilities.
+    nmap -A --script vuln <target>: Combine aggressive scan with vulnerability detection.
+
+6. Advanced Vulnerability Detection
+
+    nmap --script nmap-vulners <target>: Integrate with the nmap-vulners script to use a CVE-based vulnerability database for scanning.
+    nmap --script http-vuln-cve2021-44228 <target>: Detects the Log4Shell vulnerability (CVE-2021-44228) in Apache Log4j.
+
+7. Saving and Analyzing Results
+
+    nmap -oX vuln_scan_results.xml --script vuln <target>: Save results in XML format for later analysis or import into vulnerability management tools.
+    nmap -oA vuln_scan --script vuln <target>: Save results in all formats (normal, XML, Grepable).
+
+8. Updating and Installing NSE Scripts
+
+    nmap --script-updatedb: Update the local database of scripts.
+    nmap --script <new_script_path>: Run a custom or newly downloaded script.
+
+This list includes the most common commands and scripts for vulnerability detection using Nmap. For a complete and up-to-date list of available NSE scripts, you can check Nmap's official script repository.
+
+
+
+
+
+
+
+
+
+FIREWALL:
+Nmap includes various techniques and commands to detect and bypass firewalls, IDS (Intrusion Detection Systems), and IPS (Intrusion Prevention Systems). Below is a list of Nmap commands and techniques related to firewalls:
+1. Firewall Evasion and Spoofing
+
+    nmap -D <decoy1>,<decoy2>,... <target>: Use decoys to hide the real source of the scan. This sends packets from multiple addresses (real and decoy) to confuse the firewall or IDS.
+    nmap -S <spoofed_IP> <target>: Spoof the source IP address. This can be useful for bypassing simple IP-based firewalls, though it might not receive responses.
+    nmap --source-port <port_number> <target>: Specify a source port. Some firewalls allow traffic from certain ports (like 80 for HTTP), so spoofing the source port might bypass them.
+    nmap --data-length <size> <target>: Append random data to packets to evade IDS/IPS systems that use pattern matching.
+    nmap -f <target>: Fragment packets into smaller pieces. This can help evade some firewalls or IDS that don't properly reassemble fragmented packets.
+    nmap --mtu <value> <target>: Set a custom MTU (Maximum Transmission Unit) to fragment packets at a specific size, potentially bypassing firewalls.
+    nmap --ttl <value> <target>: Set the TTL (Time To Live) value of packets. Some IDS/IPS or firewalls may be configured to drop packets with unusual TTL values.
+
+2. Stealth Scanning Techniques
+
+    nmap -sS <target>: TCP SYN scan (also known as a stealth scan). It sends a SYN packet and waits for a response without completing the TCP handshake, making it less detectable.
+    nmap -sF <target>: TCP FIN scan. It sends a FIN packet to the target, which may bypass certain firewalls.
+    nmap -sX <target>: TCP Xmas scan. This scan sends a packet with FIN, PSH, and URG flags set, which may evade some firewalls.
+    nmap -sN <target>: TCP Null scan. It sends a packet with no flags set, which might bypass certain firewalls that focus on detecting SYN packets.
+    nmap -sA <target>: TCP ACK scan. Used to map out firewall rulesets, ACK scans are useful for determining if a firewall is stateful.
+
+3. Firewalking
+
+    nmap --traceroute <target>: Perform a traceroute to see the path packets take through the network, which can help identify firewalls and routers.
+    nmap --reason <target>: Shows the reason why a port is reported as open, closed, or filtered, providing insight into firewall behavior.
+
+4. Firewall Detection
+
+    nmap -sA <target>: ACK scan. This technique is used to map out firewall rulesets and determine if a firewall is stateful. If a firewall is present, it will block the packet, and the port will appear filtered.
+    nmap -sW <target>: TCP Window scan. Similar to the ACK scan but uses TCP window size to differentiate between open and closed ports, potentially revealing firewall configurations.
+    nmap --badsum <target>: Send packets with a bogus TCP/UDP checksum to see how the firewall responds. Some firewalls pass these packets through, which can indicate its presence.
+
+5. Timing Options
+
+    nmap -T0: Paranoid scan, sending one packet at a time with long delays. Useful for evading highly sensitive IDS/IPS.
+    nmap -T1: Sneaky scan, slightly faster than Paranoid mode, still effective at avoiding detection.
+    nmap -T2: Polite scan, reduces network load and increases the chance of remaining undetected.
+    nmap -T3: Normal scan, the default setting, balances speed and stealth.
+    nmap -T4: Aggressive scan, speeds up the scan but increases the likelihood of detection.
+    nmap -T5: Insane scan, very fast, but highly detectable.
+
+6. Bypassing Firewalls with Idle Scanning
+
+    nmap -sI <zombie_IP> <target>: Idle scan using a "zombie" host. This is a highly stealthy scan that uses another host to send packets, making it very difficult for the target to detect the true source of the scan.
+
+7. Probing Firewalls
+
+    nmap -p 80 --source-port 53 <target>: Probes a specific port (e.g., 80) using a common source port (e.g., 53 for DNS) to check if the firewall allows traffic from that source.
+    nmap -sA --reason <target>: ACK scan with reason flags to understand how the firewall handles packets and why certain responses are returned.
+
+8. Analysis of Firewall Rules
+
+    nmap --packet-trace <target>: Show all packets sent and received, allowing detailed analysis of how the firewall is handling or blocking certain packets.
+    nmap --badsum <target>: Send packets with bad checksums to see how the firewall responds; some firewalls might pass these packets, revealing weaknesses.
+
+9. Bypassing Application-Layer Firewalls
+
+    nmap --script http-method-tamper <target>: Attempts to bypass application-layer firewalls by tampering with HTTP methods.
+
+10. Miscellaneous
+
+    nmap --spoof-mac <mac address>: Spoof your MAC address to disguise your scan.
+    nmap --proxies <url1>,<url2>,... <target>: Scan through a chain of HTTP/SOCKS4 proxies to obfuscate the source of the scan.
+
+11. Advanced Evasion Techniques
+
+    nmap --scan-delay <time> <target>: Introduce a delay between probes to avoid triggering rate-limiting firewalls.
+    nmap --max-retries <number> <target>: Limit the number of retries for sending probes, useful for bypassing firewalls that drop packets sporadically.
+    nmap --randomize-hosts <target>: Randomize the order in which hosts are scanned to evade firewalls and IDS that track sequential scans.
+
+12. Analysis of Firewalled Hosts
+
+    nmap -p <port> --open <target>: Focus on open ports, ignoring filtered or closed ports to streamline the scan results when a firewall blocks certain ports.
+
+13. Service Detection Behind Firewalls
+
+    nmap -sV --version-intensity 9 <target>: Increase version detection intensity to try to identify services that are protected by a firewall.
+
+These commands and techniques provide a powerful set of tools to detect, analyze, and evade firewalls, IDS, and IPS systems, allowing you to map out network defenses and probe for potential weaknesses.
+
+
+
+
+
+
+
+
+REMOTE COMMAND:
+Nmap can be used for remote command execution, particularly through its Nmap Scripting Engine (NSE) scripts. Here’s how you can use Nmap for tasks related to remote command execution and interacting with remote systems:
+1. Remote Command Execution via NSE Scripts
+
+Nmap's NSE includes several scripts that can be used to execute commands remotely on vulnerable systems.
+
+    nmap --script smb-enum-shares.nse --script-args smbuser=<username>,smbpass=<password> <target>: Enumerate SMB shares, which can sometimes be used to execute remote commands if misconfigured.
+    nmap --script smb-brute <target>: Perform brute-force attack on SMB to gain access, which might allow for remote command execution.
+    nmap --script smb-psexec <target>: Uses credentials to execute commands remotely on Windows systems via SMB (Psexec).
+    nmap --script ssh-brute <target>: Brute-force SSH login, which, if successful, can lead to remote command execution.
+    nmap --script rdp-vuln-ms12-020 <target>: Check for the MS12-020 vulnerability in RDP, which could allow remote code execution if exploited.
+    nmap --script http-shellshock <target>: Detect and exploit Shellshock vulnerability on web servers, allowing for remote command execution.
+    nmap --script http-vuln-cve2017-5638 <target>: Exploit Apache Struts2 vulnerability to execute commands remotely.
+
+2. Remote Execution via Metasploit Integration
+
+    nmap -oX scan.xml <target>: Export Nmap scan results to an XML file.
+    msfconsole -r scan.xml: Import the Nmap scan results into Metasploit for further exploitation, including remote command execution.
+
+3. Enumerating Remote Systems for Weaknesses
+
+    nmap --script ssh-auth-methods <target>: Check which authentication methods are supported on a remote SSH server, potentially useful for gaining access.
+    nmap --script rdp-enum-encryption <target>: Enumerate the encryption methods used by RDP, potentially identifying weak configurations for exploitation.
+    nmap --script smb-vuln-* <target>: Identify various SMB vulnerabilities that might allow for remote command execution.
+
+4. Running Remote Commands on Specific Services
+
+    nmap --script ms-sql-brute <target>: Brute-force Microsoft SQL Server credentials, potentially leading to remote command execution if successful.
+    nmap --script ms-sql-dump-hashes <target>: Dump password hashes from Microsoft SQL Server, which might lead to remote command execution.
+    nmap --script telnet-brute <target>: Brute-force Telnet login, which can lead to remote command execution on systems using Telnet.
+
+5. Advanced Remote Command Execution
+
+    nmap --script smb-psexec --script-args=smbuser=<username>,smbpass=<password> <target>: Execute arbitrary commands on a remote Windows machine using valid credentials over SMB.
+    nmap --script smb-vuln-ms17-010 --script-args=ms17-010.command='whoami' <target>: Execute a command on a vulnerable SMB server by exploiting the MS17-010 vulnerability (used by WannaCry).
+
+6. Remote File Manipulation
+
+    nmap --script smb-upload --script-args "smbuser=<username>,smbpass=<password>,smbfile=/path/to/local/file,share=share_name,dir=remote_dir" <target>: Upload a file to a remote SMB share.
+    nmap --script smb-download --script-args "smbuser=<username>,smbpass=<password>,smbfile=remote_file,share=share_name,dir=remote_dir" <target>: Download a file from a remote SMB share.
+
+7. Gaining Remote Shell Access
+
+    nmap --script=ftp-brute <target>: Brute-force FTP credentials to gain access, potentially leading to remote shell access.
+    nmap --script=telnet-encryption <target>: Check the encryption method used by Telnet, potentially identifying weak configurations for remote access.
+
+8. Custom Script Development
+
+    nmap --script nselib/scripts/: You can write your own NSE scripts for custom remote command execution tasks tailored to specific environments or vulnerabilities.
+
+9. Detecting Backdoors
+
+    nmap --script backdoor <target>: Detects various backdoors that could allow an attacker to execute commands remotely.
+
+10. Advanced Techniques
+
+    nmap --script nmap-vulners <target>: Use the nmap-vulners script to identify vulnerabilities that could allow remote code execution, then follow up with targeted exploits.
+
+11. Remote Management Services
+
+    nmap --script=rdp-vuln-ms12-020 <target>: Identify RDP vulnerabilities that could allow remote access and command execution.
+    nmap --script=winrm-brute <target>: Brute-force Windows Remote Management (WinRM) credentials, potentially gaining access for remote command execution.
+
+12. Automated Scans for Remote Vulnerabilities
+
+    nmap --script=vulscan <target>: Integrates with the Vulscan NSE script to detect and potentially exploit vulnerabilities that could allow remote command execution.
+
+13. Running Commands on Remote Web Servers
+
+    nmap --script http-methods <target>: Detect HTTP methods that could allow command execution or other abuses (e.g., PUT for file upload).
+    nmap --script http-phpmyadmin-dir-traversal <target>: Exploit directory traversal vulnerabilities in phpMyAdmin, potentially leading to remote command execution.
+
+14. Remote Access via Weak Credentials
+
+    nmap --script afp-brute <target>: Brute-force Apple Filing Protocol (AFP) to gain remote access, possibly leading to remote command execution.
+    nmap --script http-brute <target>: Brute-force HTTP basic authentication, which could allow for remote command execution depending on the service configuration.
+
+These commands and scripts provide the capability to execute commands remotely on vulnerable systems or to identify weaknesses that could be exploited for remote command execution. However, they should be used ethically, with permission from the target system owner, as unauthorized use may be illegal.
+
+
+
+
+
+
+
+
+MALWARE SCANNING:
+Nmap is primarily a network scanning tool, and while it can help identify potential vulnerabilities and misconfigurations that could lead to malware infection, it doesn't directly reveal malware on websites. However, Nmap's scripting engine (NSE) includes several scripts that can help identify signs of malware or indicators of compromise on a site. Below are some commands and techniques that can help detect potentially malicious behavior or vulnerabilities that could be exploited by malware:
+1. Detecting Malicious Behavior with NSE Scripts
+
+    nmap --script http-malware-host <target>: This script checks if the target host is associated with known malware domains. It queries DNS-based blacklists (DNSBL) to identify if the site is flagged for hosting malware.
+    nmap --script http-phishing <target>: Detects phishing sites by looking for signs typically associated with phishing pages, such as misleading URLs or common phishing patterns.
+    nmap --script http-stored-xss <target>: Checks for stored cross-site scripting (XSS) vulnerabilities, which could be used by attackers to inject malicious scripts.
+    nmap --script http-sql-injection <target>: Detects SQL injection vulnerabilities, which could allow attackers to inject malicious code or malware into the database.
+    nmap --script http-unsafe-output-escaping <target>: Detects unsafe output encoding or escaping practices that could lead to the injection of malicious content into web pages.
+    nmap --script http-vuln-cve2017-5638 <target>: Checks for the Apache Struts vulnerability (CVE-2017-5638), which could be exploited to deliver malware.
+    nmap --script http-fileupload-exploiter <target>: Detects insecure file upload mechanisms that could allow attackers to upload malicious files to the server.
+
+2. Scanning for Malware Indicators
+
+    nmap --script dns-blacklist <target>: Checks if the target domain or IP address is listed in DNS blacklists, which are often used to flag sites involved in malicious activities.
+    nmap --script whois-ip <target>: Retrieves WHOIS information for the IP address, which can be used to verify the legitimacy of the site or detect suspicious ownership changes.
+
+3. Identifying Compromised Websites
+
+    nmap --script http-headers --script-args http-headers.print-all=true <target>: Analyzes HTTP headers for suspicious entries, like unexpected cookies or modified user-agent strings that could indicate malware activity.
+    nmap --script http-enum <target>: Enumerates common files and directories on a web server, which could reveal backdoors or malicious scripts left by attackers.
+
+4. Detecting Vulnerabilities that Could Lead to Malware Infection
+
+    nmap --script ssl-cert --script-args show-all <target>: Checks the SSL certificate for unusual or suspicious information that might suggest a man-in-the-middle attack or compromised server.
+    nmap --script ssl-enum-ciphers <target>: Lists supported SSL/TLS ciphers and checks for weak or outdated encryption that could be exploited by attackers to inject malware.
+    nmap --script smb-vuln-ms17-010 <target>: Checks for the SMB vulnerability used by WannaCry ransomware. While this is more relevant for network scans, it's still an important script for identifying systems vulnerable to malware.
+    nmap --script http-vuln-cve2017-1000367 <target>: Checks for the Sudo vulnerability that could allow for privilege escalation and malware installation.
+
+5. Additional Malware-Related Scans
+
+    nmap --script http-userdir-enum <target>: Enumerates user directories on web servers, which could be used to identify compromised accounts or malicious uploads.
+    nmap --script malware-host <target>: Queries various malware databases to determine if the target is associated with known malware distribution.
+
+6. External Integration for Malware Scanning
+
+    nmap -oX scan.xml <target>: Save the scan results in XML format and import them into specialized malware detection tools or services for deeper analysis.
+    Integration with other tools: While Nmap can provide indications of potential issues, it's often used in conjunction with other tools like VirusTotal, ClamAV, or Yara to perform more thorough malware analysis.
+
+7. Detecting Suspicious Activities or Backdoors
+
+    nmap --script=ftp-proftpd-backdoor <target>: Checks for backdoors in ProFTPD servers, which could be used to upload or execute malware.
+    nmap --script=irc-unrealircd-backdoor <target>: Detects the presence of backdoors in UnrealIRCd servers, which could indicate a compromised site.
+
+8. Scanning for Web Shells
+
+    nmap --script http-backdoor <target>: Attempts to detect common web shells and backdoor scripts on a web server.
+    nmap --script http-webshell <target>: Specifically checks for the presence of web shells, which are often used by attackers to control compromised sites.
+
+These Nmap commands and scripts can help identify potential signs of malware or vulnerabilities that could be exploited to distribute malware. However, for comprehensive malware detection and removal, you might want to complement Nmap scans with specialized malware analysis tools and services.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CCTV Devices:
+When it comes to Nmap and its use in the context of CCTV (Closed-Circuit Television) systems, the primary focus is usually on identifying and interacting with devices such as IP cameras, DVRs (Digital Video Recorders), and NVRs (Network Video Recorders). Nmap can be used to discover these devices, identify potential vulnerabilities, and even interact with them using specific protocols. Below are some Nmap commands and techniques that can be applied to CCTV systems:
+1. Discovering CCTV Devices
+
+    nmap -p 80,554,8080,8888 <target>: Scan common ports used by CCTV systems, including:
+        Port 80: Web interface for cameras or DVR/NVR.
+        Port 554: RTSP (Real-Time Streaming Protocol) for video streams.
+        Port 8080: Alternate web interface port.
+        Port 8888: Another common port for web interfaces.
+    nmap -sP <target>: Perform a ping scan to discover all devices on a network, including CCTV cameras and recorders.
+
+2. Service Detection
+
+    nmap -sV <target>: Perform service version detection to identify the type of service running on ports associated with CCTV devices (e.g., HTTP server on port 80).
+    nmap --script=rtsp-url-brute <target>: Brute-force the RTSP URL to identify streams that can be accessed on the CCTV system.
+
+3. Enumerating and Accessing CCTV Systems
+
+    nmap --script http-enum <target>: Enumerate web applications and directories on the CCTV web interface, which might reveal administrative pages or configuration files.
+    nmap --script http-brute <target>: Brute-force HTTP basic authentication to gain access to a camera's web interface if credentials are weak.
+
+4. Vulnerability Scanning
+
+    nmap --script http-vuln-cve2017-8225 <target>: Check for a specific vulnerability in Hikvision cameras, CVE-2017-8225, which allows remote code execution.
+    nmap --script telnet-brute <target>: Brute-force Telnet login on CCTV devices that have Telnet enabled, which could allow for remote access.
+    nmap --script http-vuln-cve2013-4890 <target>: Check for vulnerabilities in certain IP cameras that could lead to unauthorized access or remote code execution.
+
+5. RTSP Stream Discovery
+
+    nmap --script rtsp-discover <target>: Discover RTSP streams on the target device, which can be used to access video feeds.
+    nmap --script rtsp-methods <target>: Enumerate supported RTSP methods, which might indicate potential ways to interact with or exploit the CCTV system.
+
+6. Identifying Default or Weak Credentials
+
+    nmap --script http-default-accounts <target>: Check for default accounts on CCTV devices' web interfaces, which are often left unchanged by users.
+    nmap --script telnet-default <target>: Detect default Telnet credentials on CCTV devices.
+
+7. Exploring HTTP Interfaces
+
+    nmap --script http-title <target>: Retrieve the title of web pages, which can quickly identify web interfaces of CCTV devices.
+    nmap --script http-auth <target>: Identify the authentication method used by the HTTP interface, useful for planning further attacks.
+
+8. Detecting Firmware Vulnerabilities
+
+    nmap --script http-vuln-cve2016-2008 <target>: Scan for a known firmware vulnerability in certain IP cameras that allows for arbitrary file upload.
+
+9. Checking for Open Ports
+
+    nmap -p 21,22,23,80,443,554,8000,8080 <target>: Scan for a broader range of ports that might be open on CCTV devices, including FTP (21), SSH (22), and HTTPS (443).
+    nmap --script http-fileupload-exploiter <target>: Test for insecure file upload functionalities, which could allow an attacker to upload malicious files to the CCTV system.
+
+10. Firmware Backdoor Detection
+
+    nmap --script smb-vuln-ms17-010 <target>: Although not directly related to CCTV, this can check if the DVR/NVR has an SMB vulnerability that could lead to a backdoor or ransomware attack.
+    nmap --script cctv-dvr-backdoor <target>: A custom script that checks for backdoors in specific CCTV DVRs.
+
+11. Capturing Video Feeds
+
+    nmap --script=rtsp-url-brute <target>: Bruteforce RTSP URLs to capture video feeds from cameras.
+
+12. Monitoring and Analysis
+
+    nmap --script=snmp-info <target>: Retrieve SNMP information, if available, from CCTV systems that could provide insights into the network configuration and status of the devices.
+
+13. CCTV-Specific Scans
+
+    nmap -p80 --script http-methods <target>: Identifies HTTP methods enabled on CCTV devices, which could indicate weak points for attack.
+    nmap --script telnet-ntlm-info <target>: Gathers NTLM authentication information via Telnet, which could be useful for further exploits.
+
+These commands help you discover, interact with, and potentially exploit vulnerabilities in CCTV systems, but it's important to use them ethically and legally, especially since CCTV systems are often used for security purposes. Unauthorized access to CCTV systems is illegal and unethical. Always have explicit permission before conducting any scans or tests on these systems.
+
+
+
+
+
+
+
+
+CIGNAL COMMAND:
+If you're referring to "Cignal," it could be related to Cignal TV, a satellite television service in the Philippines, or a general term for signaling and communication technologies. However, based on common usage and the context of network tools, I'll focus on general network scanning commands related to detecting signaling or communication services that might be relevant.
+Network Signaling and Communication Commands with Nmap
+
+Here are some Nmap commands and techniques to scan for various signaling and communication services that might be relevant in a network context:
+1. Basic Service Discovery
+
+    nmap -sP <target>: Perform a ping scan to discover active devices on the network, which could include signaling equipment.
+    nmap -sS <target>: Perform a TCP SYN scan to detect open ports on target devices that could be related to signaling services.
+
+2. Service Version Detection
+
+    nmap -sV <target>: Detects service versions running on open ports, which can include various communication and signaling services.
+
+3. Specific Port Scans
+
+    nmap -p 80,443,8080 <target>: Scan common ports for web-based signaling services or interfaces.
+    nmap -p 5060,5061 <target>: Scan for SIP (Session Initiation Protocol) ports used for signaling in VoIP communications.
+    nmap -p 22,23,25,53,110,143,3389 <target>: Scan for common ports that might be used for various communication protocols or signaling services.
+
+4. Service Enumeration
+
+    nmap --script=http-enum <target>: Enumerate web applications and directories, which might reveal interfaces related to signaling or communication services.
+    nmap --script=sip-enum-users <target>: Enumerate users on SIP (Session Initiation Protocol) services, useful for discovering VoIP signaling information.
+
+5. Protocol-Specific Scanning
+
+    nmap --script=smb-enum-shares <target>: Enumerate SMB shares, which might be used for sharing signaling data or configuration files.
+    nmap --script=smb-os-discovery <target>: Discover operating system information through SMB, which might include information about signaling equipment.
+
+6. Detecting Common Vulnerabilities
+
+    nmap --script http-vuln-cve2006-3392 <target>: Detect specific HTTP vulnerabilities that could affect communication services.
+    nmap --script sip-methods <target>: Check for supported SIP methods, which can reveal potential weaknesses in signaling services.
+
+7. Advanced Service Detection
+
+    nmap --script=ipmi-detect <target>: Detect IPMI (Intelligent Platform Management Interface) services, which might be used for remote management and signaling in data centers.
+    nmap --script=snmp-brute <target>: Brute-force SNMP (Simple Network Management Protocol) community strings, which might be used for managing signaling equipment.
+
+8. Exploring Network Services
+
+    nmap --script=network-basic-discovery <target>: Basic network discovery that might reveal services related to signaling or communication.
+    nmap --script=network-mapper <target>: Map network devices and services that could include signaling equipment.
+
+9. Scanning for VoIP Systems
+
+    nmap --script=voip-info <target>: Gather information on VoIP services, which use signaling protocols like SIP.
+    nmap --script=voip-sip <target>: Analyze SIP services for potential vulnerabilities and configuration issues.
+
+10. Exploring Specific Signaling Technologies
+
+    nmap --script=http-shellshock <target>: Detect vulnerabilities in web services that could be used for various communication and signaling purposes.
+    nmap --script=rtsp-url-brute <target>: Brute-force RTSP URLs to discover video streams, which might be part of a signaling or communication system.
+
+These commands and scripts can help you discover and interact with various signaling and communication services on a network. If you have a specific context for "Cignal," such as a particular technology or system you're interested in, please provide more details so I can tailor the commands further.

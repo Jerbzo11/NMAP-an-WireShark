@@ -1,0 +1,15 @@
+To learn Wireshark effectively, it's helpful to have a foundational understanding of networking concepts and protocols. Here's a suggested list of prerequisites:
+
+    Basic Networking Knowledge: Understand concepts like IP addressing, TCP/IP protocols, subnetting, DNS, DHCP, OSI model, etc. This knowledge provides the context for understanding the data captured by Wireshark.
+
+    Network Protocols: Familiarize yourself with common network protocols such as HTTP, HTTPS, FTP, SSH, Telnet, SMTP, POP3, IMAP, etc. Understanding how these protocols work will help you interpret the data captured by Wireshark.
+
+    TCP/IP Stack: Learn about the layers of the TCP/IP protocol stack (Application, Transport, Internet, and Link layers) and how data flows through these layers.
+
+    Command Line Interface (CLI) Skills: Familiarize yourself with basic command line tasks as some tasks in Wireshark might require command line usage, especially for capturing packets on Linux systems.
+
+    Operating System Basics: Have a basic understanding of the operating system you'll be using Wireshark on, whether it's Windows, macOS, or Linux. Understanding file systems, permissions, and system administration basics will be beneficial.
+
+    Wireshark Basics: While not a prerequisite course, it's helpful to start with basic Wireshark tutorials or guides to get familiar with the interface and basic features.
+
+Online platforms like Coursera, Udemy, and YouTube offer various courses and tutorials on networking fundamentals, TCP/IP, and Wireshark itself. Additionally, many universities and technical colleges offer networking courses that cover these topics as part of their curriculum.

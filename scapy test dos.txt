@@ -1,0 +1,10 @@
+send(IP(src="8.8.8.8", dst="192.168.1.1")/TCP(sport=80, dport=80), count=100)
+
+
+takenote: Disable Firewall/Security Software Temporarily
+
+    Disable any firewall or security software temporarily to see if it’s blocking the traffic.
+
+
+#C:\Users\gabis\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0
+#C:\Users\gabis\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\scapy

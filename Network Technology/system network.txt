@@ -1,0 +1,9 @@
+
+
+create a system have networking
+
+1. create network standard/ documents about network 
+     -connector type
+     -cable length
+     -Number of computers
+
